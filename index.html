@@ -4,355 +4,326 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>राधा नाम जप & हनुमान चालीसा</title>
-
 <style>
-body{
-margin:0;
-background:#000;
-color:white;
-font-family:'Poppins',sans-serif;
-text-align:center;
-overflow-x:hidden;
-transition:background 0.5s;
-}
+body{margin:0;font-family:'Poppins',sans-serif;background:#000;color:white;text-align:center;transition:background 0.5s;overflow-x:hidden;}
 
-/* ================= LOADER ================= */
-#loader{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:radial-gradient(circle,#200000,#000);
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-z-index:99999;
+/* LOADING SCREEN WITH RED PARTICLES */
+#loadingScreen{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:#000;
+  display:flex;justify-content:center;align-items:center;flex-direction:column;
+  z-index:1000;
+  overflow:hidden;
 }
-
+#particlesCanvas{
+  position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;
+}
 .loader-circle{
-width:90px;
-height:90px;
-border:8px solid #330000;
-border-top:8px solid #ff0000;
-border-radius:50%;
-animation:spin 1s linear infinite;
-box-shadow:0 0 25px red;
+  width:120px;height:120px;border:12px solid #222;
+  border-top:12px solid #ff3a3a;border-radius:50%;
+  animation:spin 1.5s linear infinite, colorShift 3s linear infinite;
+  margin-bottom:20px;z-index:1;position:relative;
 }
-
-.loader-text{
-margin-top:25px;
-color:#ff4d4d;
-font-size:22px;
-font-weight:700;
-letter-spacing:2px;
-text-shadow:0 0 20px red;
-}
-
 @keyframes spin{
-0%{transform:rotate(0deg);}
-100%{transform:rotate(360deg);}
+  0%{transform:rotate(0deg);}
+  100%{transform:rotate(360deg);}
+}
+@keyframes colorShift{
+  0%{border-top-color:#ff3a3a;}
+  25%{border-top-color:#ff1a1a;}
+  50%{border-top-color:#ff5555;}
+  75%{border-top-color:#ff2222;}
+  100%{border-top-color:#ff3a3a;}
 }
 
-/* ================= WELCOME ================= */
-.hero{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-background:radial-gradient(circle,#150000,#000);
+#loadingText, #welcomeText{
+  font-size:24px;font-weight:800;text-transform:uppercase;
+  text-shadow:0 0 10px #ff3a3a,0 0 20px #ff1a1a,0 0 30px #ff5555;
+  background: linear-gradient(90deg, #ff3a3a, #ff1a1a, #ff5555);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity:0;
+  transition: opacity 1s, transform 0.8s;
+  z-index:1;position:relative;
+}
+#loadingText{
+  animation: pulse 1.5s infinite alternate;
+  opacity:1;
+}
+#welcomeText{
+  font-size:28px;
+  margin-top:10px;
+}
+@keyframes pulse{
+  0%{transform: scale(1); text-shadow:0 0 10px #ff3a3a,0 0 20px #ff1a1a;}
+  50%{transform: scale(1.1); text-shadow:0 0 20px #ff5555,0 0 40px #ff2222;}
+  100%{transform: scale(1); text-shadow:0 0 10px #ff3a3a,0 0 20px #ff1a1a;}
 }
 
-.hero h2{
-font-size:45px;
-color:#ff2e2e;
-text-shadow:0 0 35px red;
-}
-
-.hero p{
-color:#ff9999;
-margin-top:10px;
-}
-
-.enter-btn{
-margin-top:35px;
-padding:15px 35px;
-font-size:20px;
-border:none;
-border-radius:30px;
-background:#ff0000;
-color:white;
-cursor:pointer;
-box-shadow:0 0 25px red;
-transition:0.3s;
-}
-
-.enter-btn:hover{
-transform:scale(1.1);
-box-shadow:0 0 40px red;
-}
-
-/* ================= MAIN UI ================= */
-#mainContent{display:none;}
-
-h1{color:#ff8c2a;font-size:32px;margin-top:20px;text-shadow:0 0 18px rgba(255,140,42,0.6);}
-
-.tabs{margin-top:20px;display:flex;justify-content:center;gap:12px;}
-.tab{padding:12px 18px;background:#111;border-radius:10px;border:1px solid #333;color:#ccc;}
-.tab.active{background:linear-gradient(180deg,#ff8a26,#ff6200);color:white;}
-
-.top-stats{display:flex;justify-content:center;gap:16px;margin-top:25px;}
-.stat-box{background:#141414;padding:10px 18px;border-radius:12px;border:1px solid #262626;}
-.stat-box span{display:block;color:#ff8224;font-weight:700;font-size:17px;}
-
-.circle-wrap{margin-top:20px;display:flex;justify-content:center;}
-.big-circle{
-width:300px;height:300px;border-radius:50%;
-background:radial-gradient(circle,rgba(255,120,20,0.15),rgba(0,0,0,1));
-border:4px solid rgba(255,140,42,0.5);
-display:flex;justify-content:center;align-items:center;
-position:relative;box-shadow:0 0 45px rgba(255,120,20,0.1);
-cursor:pointer;
-}
-
-.inner-circle{
-width:180px;height:180px;border-radius:50%;
-background:#0d0d0d;border:3px solid #ff8d22;
-display:flex;justify-content:center;align-items:center;
-font-size:65px;color:#ffa24d;font-weight:700;
-text-shadow:0 0 12px rgba(255,120,20,0.5);
-}
-
-.rise{
-position:absolute;font-weight:700;font-size:22px;
-color:#ffb366;opacity:1;pointer-events:none;
-}
-
-.bottom-boxes{display:flex;justify-content:center;gap:12px;margin-top:28px;}
-.bbox{background:#111;width:110px;padding:10px;border-radius:12px;border:1px solid #222;}
-.bbox .num{color:#ff8e34;font-size:22px;font-weight:700;}
-
-.buttons{margin-top:25px;display:flex;justify-content:center;flex-wrap:wrap;}
-.btn{padding:12px 18px;border-radius:12px;background:#1a1a1a;margin:5px;border:1px solid #333;color:#ddd;cursor:pointer;}
-.btn.orange{background:linear-gradient(180deg,#ff8925,#ff6100);border:none;color:white;}
-
-.music-btn{
-background:#ff8c2a;color:#000;
-padding:12px 22px;border-radius:12px;
-margin-top:20px;font-weight:700;border:none;cursor:pointer;
-}
-
-#namePopup,#historyPopup{
-position:fixed;top:0;left:0;width:100%;height:100%;
-background:rgba(0,0,0,0.8);
-display:none;justify-content:center;align-items:center;
-}
-
-.popup-box{
-width:80%;max-height:70%;
-background:#1a1a1a;border:2px solid #ff7a1f;
-border-radius:16px;padding:20px;overflow-y:scroll;
-box-shadow:0 0 25px #ff7a1f;
-}
-
-.popup-box div{
-padding:12px;margin:8px 0;
-background:#111;border-radius:10px;
-border:1px solid #333;font-size:20px;
-color:#ff9a40;cursor:pointer;
-}
-
-footer{
-margin-top:35px;color:#ff9a40;
-font-weight:700;font-size:18px;
-text-shadow:0 0 15px #ff7a1f;
-}
+/* APP STYLES */
+h1{color:#ff3a3a;font-size:28px;margin:15px 0;text-shadow:0 0 15px rgba(255,58,58,0.6);}
+.tabs{display:flex;justify-content:center;gap:10px;margin:10px 0;flex-wrap:wrap;}
+.tab{padding:10px 14px;background:#111;border-radius:8px;border:1px solid #333;color:#ccc;font-size:14px;cursor:pointer;}
+.tab.active{background:linear-gradient(180deg,#ff3a3a,#ff1a1a);color:white;}
+.top-stats{display:flex;justify-content:center;gap:10px;margin:15px 0;flex-wrap:wrap;}
+.stat-box{background:#141414;padding:8px 12px;border-radius:10px;border:1px solid #262626;}
+.stat-box span{display:block;color:#ff8224;font-weight:700;font-size:15px;}
+.circle-wrap{display:flex;justify-content:center;margin:15px 0;}
+.big-circle{width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(255,0,0,0.15),#000);border:4px solid rgba(255,58,58,0.5);display:flex;justify-content:center;align-items:center;position:relative;cursor:pointer;box-shadow:0 0 30px rgba(255,58,58,0.2);}
+.inner-circle{width:140px;height:140px;border-radius:50%;background:#0d0d0d;border:3px solid #ff3a3a;display:flex;justify-content:center;align-items:center;font-size:45px;color:#ff6666;font-weight:700;text-shadow:0 0 10px rgba(255,58,58,0.5);}
+.rise{position:absolute;font-weight:700;font-size:18px;color:#ff4444;opacity:1;pointer-events:none;}
+.bottom-boxes{display:flex;justify-content:center;gap:10px;margin:15px 0;flex-wrap:wrap;}
+.bbox{background:#111;width:90px;padding:8px;border-radius:10px;border:1px solid #222;}
+.bbox .num{color:#ff8e34;font-size:20px;font-weight:700;}
+.buttons{display:flex;justify-content:center;flex-wrap:wrap;margin:15px 0;}
+.btn{padding:10px 14px;border-radius:10px;background:#1a1a1a;margin:4px;border:1px solid #333;color:#ddd;cursor:pointer;font-size:14px;}
+.btn.orange{background:linear-gradient(180deg,#ff3a3a,#ff1a1a);border:none;color:white;}
+.music-player{margin:10px auto;display:flex;flex-direction:column;align-items:center;gap:6px;background:#111;border-radius:10px;padding:8px 10px;border:1px solid #333;width:200px;}
+.music-player button, .music-player select{font-size:14px;padding:6px 8px;border-radius:6px;border:none;cursor:pointer;}
+#namePopup,#historyPopup{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:none;justify-content:center;align-items:center;}
+.popup-box{width:80%;max-height:70%;background:#1a1a1a;border:2px solid #ff3a3a;border-radius:16px;padding:20px;overflow-y:auto;box-shadow:0 0 25px #ff3a3a;}
+.popup-box div{padding:10px;margin:6px 0;background:#111;border-radius:8px;border:1px solid #333;font-size:18px;color:#ff9a40;cursor:pointer;}
+footer{margin:20px 0;color:#ff3a3a;font-weight:700;font-size:16px;text-shadow:0 0 12px #ff3a3a;}
 </style>
 </head>
-
 <body>
 
-<!-- LOADER -->
-<div id="loader">
-<div class="loader-circle"></div>
-<div class="loader-text">Loading Divine Energy...</div>
+<!-- LOADING SCREEN -->
+<div id="loadingScreen">
+  <canvas id="particlesCanvas"></canvas>
+  <div class="loader-circle"></div>
+  <div id="loadingText">Loading...</div>
+  <div id="welcomeText">Welcome by Adarsh Shukla</div>
 </div>
 
-<!-- WELCOME -->
-<div class="hero" id="welcomeScreen">
-<h2>✨ Welcome ✨</h2>
-<p>by Adarsh Shukla</p>
-<button class="enter-btn" onclick="enterSite()">🚩 प्रवेश करें</button>
-</div>
-
-<!-- MAIN CONTENT -->
-<div id="mainContent">
-
+<!-- APP CONTENT -->
+<div id="appPage">
 <h1>राधा नाम जप & हनुमान चालीसा</h1>
+<div class="music-player">
+  <select id="songList">
+    <option value="radha.mp3/dagar-hai-muskil.mp3">डगर है मुश्किल</option>
+    <option value="radha.mp3/hanuman-chalisa.mp3">श्री हनुमान चालीसा</option>
+    <option value="radha.mp3/radha-kirtan.mp3">Radha Naam Kirtan</option>
+    <option value="radha.mp3/radha-radha.mp3">Radha Radha</option>
+    <option value="radha.mp3/shri-radha-radha.mp3">श्री राधा राधा</option>
+    <option value="radha.mp3/tere-rang-teri-ashqui.mp3">Tere Rang Teri Aashiqui</option>
+  </select>
+  <button id="musicBtn">▶</button>
+</div>
 
-<button id="musicBtn" class="music-btn">▶ भक्ति संगीत चलाएँ</button>
-<audio id="bgMusic" loop>
-<source src="radha.mp3" type="audio/mpeg">
-</audio>
+<audio id="bgMusic"></audio>
 
 <div class="tabs">
-<div class="tab active">ॐ जप</div>
-<div class="tab">हनुमान चालीसा</div>
-<div class="tab">भजन</div>
+  <div class="tab active">ॐ जप</div>
+  <div class="tab">हनुमान चालीसा</div>
+  <div class="tab">भजन</div>
 </div>
 
 <div class="top-stats">
-<div class="stat-box">⏱ <span id="time">00:00</span></div>
-<div class="stat-box">🔥 Streak: <span id="streak">0</span></div>
+  <div class="stat-box">⏱ <span id="time">00:00</span></div>
+  <div class="stat-box">🔥 Streak: <span id="streak">0</span></div>
 </div>
 
 <div class="circle-wrap">
-<div class="big-circle" id="tapArea">
-<div class="inner-circle" id="count">0</div>
-</div>
+  <div class="big-circle" id="tapArea">
+    <div class="inner-circle" id="count">0</div>
+  </div>
 </div>
 
 <div class="bottom-boxes">
-<div class="bbox"><span class="num" id="mala">0</span>माला</div>
-<div class="bbox"><span class="num" id="today">0</span>आज</div>
-<div class="bbox"><span class="num" id="total">0</span>कुल</div>
+  <div class="bbox"><span class="num" id="mala">0</span>माला</div>
+  <div class="bbox"><span class="num" id="today">0</span>आज</div>
+  <div class="bbox"><span class="num" id="total">0</span>कुल</div>
 </div>
 
 <div class="buttons">
-<button class="btn orange" id="openNames">28 नाम</button>
-<button class="btn orange" id="openHistory">इतिहास</button>
-<button class="btn" id="resetBtn">Reset</button>
-<button class="btn" id="changeBgBtn">🌈 Background बदलें</button>
+  <button class="btn orange" id="openNames">28 नाम</button>
+  <button class="btn orange" id="openHistory">इतिहास</button>
+  <button class="btn" id="resetBtn">Reset</button>
+  <button class="btn" id="changeBgBtn">🌈 Background बदलें</button>
 </div>
 
-<div id="namePopup"><div class="popup-box" id="nameList"></div></div>
-<div id="historyPopup"><div class="popup-box" id="historyList"></div></div>
+<div id="namePopup">
+  <div class="popup-box" id="nameList"></div>
+</div>
+
+<div id="historyPopup">
+  <div class="popup-box" id="historyList"></div>
+</div>
 
 <footer>Powered by Adarsh Shukla</footer>
-
 </div>
 
 <script>
+// ---------- RED PARTICLES ----------
+const canvas = document.getElementById('particlesCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-/* LOADER */
-window.addEventListener("load",()=>{
-setTimeout(()=>{
-document.getElementById("loader").style.display="none";
-},2500);
-});
-
-function enterSite(){
-document.getElementById("welcomeScreen").style.display="none";
-document.getElementById("mainContent").style.display="block";
+let particles = [];
+for(let i=0;i<120;i++){
+  particles.push({
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    size: Math.random()*3 + 1,
+    speedX: (Math.random()-0.5)*0.6,
+    speedY: (Math.random()-0.5)*0.6,
+    opacity: Math.random()*0.6 + 0.2,
+    color:`rgba(${Math.floor(Math.random()*155 +100)},0,0,${Math.random()*0.5 +0.2})`
+  });
 }
 
-/* MAIN LOGIC */
-let total=0,today=0,mala=0,streak=0,seconds=0,timerStarted=false;
-let selectedName="राधा",tapHistory=[];
-let display=document.getElementById("count");
+function animateParticles(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{
+    p.x += p.speedX;
+    p.y += p.speedY;
+    if(p.x<0)p.x=canvas.width;
+    if(p.x>canvas.width)p.x=0;
+    if(p.y<0)p.y=canvas.height;
+    if(p.y>canvas.height)p.y=0;
+    ctx.fillStyle = p.color;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+    ctx.fill();
+  });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+window.addEventListener('resize',()=>{
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
 
+// ---------- LOADING ----------
+window.addEventListener("load", ()=>{
+  const loader = document.getElementById("loadingScreen");
+  const loadingText = document.getElementById("loadingText");
+  const welcome = document.getElementById("welcomeText");
+
+  setTimeout(()=>{
+    loadingText.style.opacity=0;
+    welcome.style.opacity=1;
+    welcome.style.transform='scale(1.2)';
+    setTimeout(()=>loader.style.display='none',1500);
+  },2000);
+});
+
+// ---------- APP LOGIC (TAP, MUSIC, RESET, NAMES) ----------
+let selectedName = "राधा";
+let total=0, today=0, mala=0, streak=0, seconds=0, timerStarted=false;
+let tapHistory = [];
+let display = document.getElementById("count");
+
+// NAMES
 const names=["राधा","श्रीकृष्ण","हनुमान","सीता राम","दुर्गा","काली","लक्ष्मी","सरस्वती","गणेश","शिव","महादेव","नारायण","विष्णु","शंकर","बजरंगबली","श्री राम","श्रीनाथ","बालाजी","रुक्मिणी","विट्ठल","पार्वती","अदिति","भवानी","महाकाल","कालिका","अन्नपूर्णा","माँ संतोषी","नृसिंह"];
-
 let list=document.getElementById("nameList");
 names.forEach(n=>{
-let d=document.createElement("div");
-d.innerText=n;
-d.onclick=()=>{selectedName=n;document.getElementById("namePopup").style.display="none";};
-list.appendChild(d);
+  let d=document.createElement("div");
+  d.innerText=n;
+  d.onclick=()=>{selectedName=n;document.getElementById("namePopup").style.display="none";};
+  list.appendChild(d);
 });
-
 document.getElementById("openNames").onclick=()=>{document.getElementById("namePopup").style.display="flex";};
 document.getElementById("openHistory").onclick=()=>{
-let historyBox=document.getElementById("historyList");
-historyBox.innerHTML="";
-if(tapHistory.length===0){historyBox.innerHTML="<div>कोई इतिहास नहीं</div>";}
-else{
-tapHistory.forEach((h,i)=>{
-let d=document.createElement("div");
-d.innerText=`Tap ${i+1}: ${h.name} | कुल: ${h.total} | समय: ${h.time}`;
-historyBox.appendChild(d);
+  let historyBox=document.getElementById("historyList");
+  historyBox.innerHTML="";
+  if(tapHistory.length===0){historyBox.innerHTML="<div>कोई इतिहास नहीं</div>";}
+  else{tapHistory.forEach((h,i)=>{
+    let d=document.createElement("div");
+    d.innerText=`Tap ${i+1}: ${h.name} | कुल: ${h.total} | समय: ${h.time}`;
+    historyBox.appendChild(d);
+  });}
+  document.getElementById("historyPopup").style.display="flex";
+};
+
+// MUSIC
+let music = document.getElementById("bgMusic");
+let musicBtn = document.getElementById("musicBtn");
+let songSelect = document.getElementById("songList");
+let currentIndex = 0;
+music.src = songSelect.value;
+musicBtn.addEventListener("click", ()=>{
+  if(music.paused){music.play(); musicBtn.innerText="⏸";}
+  else{music.pause(); musicBtn.innerText="▶";}
 });
-}
-document.getElementById("historyPopup").style.display="flex";
-};
+songSelect.addEventListener("change", ()=>{
+  currentIndex = songSelect.selectedIndex;
+  music.src = songSelect.value;
+  music.load();
+  music.play().catch(e=>console.log(e));
+  musicBtn.innerText="⏸";
+});
+music.addEventListener("ended", ()=>{
+  currentIndex++;
+  if(currentIndex >= songSelect.options.length) currentIndex = 0;
+  music.src = songSelect.options[currentIndex].value;
+  songSelect.selectedIndex = currentIndex;
+  music.load();
+  music.play().catch(e=>console.log(e));
+});
 
-let music=document.getElementById("bgMusic");
-document.getElementById("musicBtn").onclick=()=>{
-if(music.paused){music.play();musicBtn.innerText="⏸ संगीत रोकें";}
-else{music.pause();musicBtn.innerText="▶ भक्ति संगीत चलाएँ";}
-};
-
-const backgrounds=[
-"linear-gradient(135deg,#000,#434343)",
-"linear-gradient(135deg,#0f2027,#203a43,#2c5364)",
-"linear-gradient(135deg,#ff7e5f,#feb47b)",
-"linear-gradient(135deg,#6a11cb,#2575fc)",
-"linear-gradient(135deg,#ff512f,#dd2476)"
+// BACKGROUND
+const backgrounds = [
+  "linear-gradient(135deg,#000,#434343)",
+  "linear-gradient(135deg,#0f2027,#203a43,#2c5364)",
+  "linear-gradient(135deg,#ff7e5f,#feb47b)",
+  "linear-gradient(135deg,#6a11cb,#2575fc)",
+  "linear-gradient(135deg,#ff512f,#dd2476)"
 ];
+document.getElementById("changeBgBtn").addEventListener("click", ()=>{
+  document.body.style.background = backgrounds[Math.floor(Math.random()*backgrounds.length)];
+});
 
-document.getElementById("changeBgBtn").onclick=()=>{
-document.body.style.background=backgrounds[Math.floor(Math.random()*backgrounds.length)];
-};
+// TIMER
+function startTimer(){setInterval(()=>{seconds++;document.getElementById("time").innerText=formatTime(seconds);},1000);}
+function formatTime(sec){let m=Math.floor(sec/60),s=sec%60;return (m<10?'0':'')+m+":"+(s<10?'0':'')+s;}
 
-function startTimer(){
-setInterval(()=>{
-seconds++;
-document.getElementById("time").innerText=formatTime(seconds);
-},1000);
-}
+// TAP
+document.getElementById("tapArea").addEventListener("click",()=>{
+  if(!timerStarted){timerStarted=true; startTimer();}
+  total++; today++; mala=Math.floor(total/108); streak++;
+  display.innerText=today;
+  document.getElementById("mala").innerText=mala;
+  document.getElementById("today").innerText=today;
+  document.getElementById("total").innerText=total;
+  document.getElementById("streak").innerText=streak;
 
-function formatTime(sec){
-let m=Math.floor(sec/60),s=sec%60;
-return (m<10?'0':'')+m+":"+(s<10?'0':'')+s;
-}
+  tapHistory.push({name:selectedName,total:total,time:formatTime(seconds)});
+  if(navigator.vibrate) navigator.vibrate(50);
 
-document.getElementById("tapArea").onclick=()=>{
-if(!timerStarted){timerStarted=true;startTimer();}
-total++;today++;mala=Math.floor(total/108);streak++;
-display.innerText=today;
-document.getElementById("mala").innerText=mala;
-document.getElementById("today").innerText=today;
-document.getElementById("total").innerText=total;
-document.getElementById("streak").innerText=streak;
-tapHistory.push({name:selectedName,total:total,time:formatTime(seconds)});
-if(navigator.vibrate) navigator.vibrate(40);
+  for(let i=0;i<5;i++){
+    let r=document.createElement("div");
+    r.className="rise";
+    r.innerText=selectedName;
+    r.style.left="50%";
+    r.style.top="50%";
+    r.style.transform="translate(-50%, -50%)";
+    document.getElementById("tapArea").appendChild(r);
 
-for(let i=0;i<5;i++){
-let r=document.createElement("div");
-r.className="rise";
-r.innerText=selectedName;
-r.style.left="50%";
-r.style.top="50%";
-r.style.transform="translate(-50%, -50%)";
-tapArea.appendChild(r);
-let dx=(Math.random()-0.5)*200;
-let dy=(Math.random()-0.5)*200;
-r.animate([
-{transform:'translate(-50%, -50%)',opacity:1},
-{transform:`translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(1.5)`,opacity:0}
-],{duration:1000,easing:'ease-out'});
-setTimeout(()=>r.remove(),1000);
-}
-};
+    let dx=(Math.random()-0.5)*160;
+    let dy=(Math.random()-0.5)*160;
 
-document.getElementById("resetBtn").onclick=()=>{
-total=today=mala=streak=seconds=0;
-display.innerText=0;
-document.getElementById("mala").innerText=0;
-document.getElementById("today").innerText=0;
-document.getElementById("total").innerText=0;
-document.getElementById("streak").innerText=0;
-tapHistory=[];
-document.getElementById("time").innerText="00:00";
-timerStarted=false;
-};
+    r.animate([
+      { transform:'translate(-50%, -50%) scale(1)', opacity:1 },
+      { transform:`translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(1.4)`, opacity:0 }
+    ], {duration:900, easing:'ease-out'});
 
-document.getElementById("namePopup").onclick=e=>{if(e.target===e.currentTarget)e.currentTarget.style.display="none";};
-document.getElementById("historyPopup").onclick=e=>{if(e.target===e.currentTarget)e.currentTarget.style.display="none";};
+    setTimeout(()=>r.remove(),900);
+  }
+});
 
+// RESET
+document.getElementById("resetBtn").addEventListener("click", ()=>{
+  total=today=mala=streak=seconds=0;
+  display.innerText=0;
+  document.getElementById("mala").innerText=0;
+  document.getElementById("today").innerText=0;
+  document.getElementById("total").innerText=0;
+  document.getElementById("streak").innerText=0;
+  tapHistory=[];
+});
 </script>
-
 </body>
 </html>
