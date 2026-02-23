@@ -4,298 +4,368 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>राधा नाम जप & हनुमान चालीसा</title>
+
 <style>
 :root{
-  --bg:#070707;
   --accent:#ff8a00;
   --accent2:#ffa733;
-  --glass: rgba(255,255,255,0.03);
-  --radius:18px;
   font-family:'Poppins',sans-serif;
 }
-*{margin:0;padding:0;box-sizing:border-box;}
-html,body{height:100%;background:var(--bg);color:white;overflow-x:hidden;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#070707;color:#fff;overflow-x:hidden}
 
 /* Loading */
-#loadingPage{display:flex;justify-content:center;align-items:center;flex-direction:column;height:100vh;width:100%;}
-.spinner-wrapper{position:relative;width:160px;height:160px;margin-bottom:30px;}
-.circle{width:100%;height:100%;border-radius:50%;border:10px solid transparent;border-top:10px solid yellow;animation:rotate 1s linear infinite, glow 2s ease-in-out infinite alternate;}
-@keyframes rotate{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
-@keyframes glow{0%{box-shadow:0 0 10px yellow;}100%{box-shadow:0 0 70px orange;}}
-.dot-container{position:absolute;top:50%;left:50%;width:80%;display:flex;justify-content:space-between;transform:translate(-50%,-50%);}
-.dot{width:22px;height:22px;background:yellow;border-radius:50%;animation:bounce 1s infinite ease-in-out,pulse 1.2s infinite alternate;}
-@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-25px);}}
-@keyframes pulse{0%{transform:scale(1);}100%{transform:scale(1.3);}}
-.loading-text{font-size:3rem;letter-spacing:4px;font-weight:900;display:flex;gap:3px;}
-.loading-text span{animation:wave 1.2s infinite;}
-@keyframes wave{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-20px);}}
+#loadingPage{
+display:flex;justify-content:center;align-items:center;
+flex-direction:column;height:100vh;background:black;
+}
+.spinner{
+width:120px;height:120px;border:8px solid transparent;
+border-top:8px solid yellow;border-radius:50%;
+animation:spin 1s linear infinite;
+}
+@keyframes spin{100%{transform:rotate(360deg)}}
+.loading-name{
+margin-top:20px;
+font-size:20px;
+font-weight:bold;
+color:#ffae00;
+text-shadow:0 0 15px orange,0 0 25px yellow;
+}
 
-.hidden{display:none;}
-
-/* Welcome Page */
+/* Welcome */
 #welcomePage{
-  display:none;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  height:100vh;
-  width:100%;
-  gap:20px;
-  padding:40px;
-  position:relative;
-  text-align:center;
+display:none;height:100vh;
+flex-direction:column;align-items:center;justify-content:center;
+background:linear-gradient(-45deg,#1a1a1a,#2b0f0f,#000,#331a00);
+background-size:400% 400%;
+animation:grad 10s infinite alternate;
+text-align:center;padding:20px;
 }
+@keyframes grad{0%{background-position:0%}100%{background-position:100%}}
+
 .logo{
-  width:120px;
-  height:120px;
-  border-radius:20px;
-  display:grid;
-  place-items:center;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  font-weight:900;
-  color:#fff700;
-  font-size:64px;
-  text-shadow:0 0 20px var(--accent);
-  cursor:pointer;
+width:120px;height:120px;border-radius:30px;
+background:linear-gradient(135deg,var(--accent),var(--accent2));
+display:grid;place-items:center;
+font-size:60px;font-weight:bold;
+color:yellow;box-shadow:0 0 40px orange;
+margin-bottom:20px;
 }
-.brand h2{
-  color:yellow;
-  font-size:36px;
-  font-weight:900;
-  margin:10px 0;
+
+#welcomeDesc{
+margin:10px 0 20px 0;
+color:#ccc;font-size:16px;
+cursor:pointer;
 }
-.brand p{
-  font-size:18px;
-  color:rgba(255,255,255,0.8);
-  max-width:400px;
-  line-height:1.4;
-}
-/* Tabs and Card */
-.tabs{display:flex;gap:12px;margin:15px 0;}
-.tabs button{
-  flex:1;
-  padding:10px;
-  border:none;
-  border-radius:12px;
-  background:rgba(255,255,255,0.05);
-  color:#fff;
-  cursor:pointer;
-  font-weight:600;
-  transition:all 0.3s;
-}
-.tabs button.active{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#150800;}
+
 .card{
-  width:360px;
-  min-height:420px;
-  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border-radius:var(--radius);
-  padding:28px;
-  backdrop-filter:blur(6px);
-  position:relative;
-  overflow:hidden;
-  box-shadow:0 8px 30px rgba(0,0,0,0.6);
-  border:1px solid rgba(255,255,255,0.03);
+background:rgba(255,255,255,0.05);
+padding:25px;border-radius:15px;
+width:300px;
 }
-.forms{position:relative;height:300px;}
-.form{display:flex;flex-direction:column;gap:12px;position:absolute;top:0;left:0;width:100%;transition:all 0.5s ease;}
-.form.hidden{opacity:0;pointer-events:none;transform:translateX(100px);}
-.input{background:var(--glass);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,0.02);}
-.input input{background:transparent;border:0;outline:0;color:#fff;width:100%;font-size:15px;}
-.input .icon{opacity:0.8;}
-.btn{background:linear-gradient(90deg,var(--accent),var(--accent2));border:none;color:#150800;padding:12px;font-weight:700;border-radius:12px;cursor:pointer;margin-top:10px;}
-.social{display:flex;gap:10px;margin-top:12px;}
-.social button{flex:1;padding:10px;border-radius:10px;border:0;background:rgba(255,255,255,0.03);color:#fff;}
-.footer{margin-top:24px;font-size:14px;font-weight:700;color:var(--accent);text-align:center;}
 
-/* App Page */
-#appPage{display:none;padding:20px;text-align:center;}
-.appTitle{font-size:28px;color:yellow;text-shadow:0 0 15px rgba(255,255,0,0.6);}
-.big-circle{width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,0,0.15),#000);border:4px solid rgba(255,255,0,0.5);display:flex;justify-content:center;align-items:center;cursor:pointer;box-shadow:0 0 30px rgba(255,255,0,0.2);margin:auto;}
-.inner-circle{font-size:45px;color:#fff700;font-weight:700;text-shadow:0 0 10px rgba(255,255,0,0.5);}
-.bbox{background:#111;width:90px;padding:8px;border-radius:10px;border:1px solid #222;margin:5px;display:inline-block;}
-.bbox .num{font-size:20px;color:#ff8e34;font-weight:700;}
-.music-player{margin:10px auto;display:flex;flex-direction:column;align-items:center;gap:6px;}
-.music-player select,.music-player button{font-size:14px;padding:6px;border-radius:6px;border:none;cursor:pointer;}
-
-#namePopup,#historyPopup{
-  display:none;
-  justify-content:center;
-  align-items:center;
-  position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background:rgba(0,0,0,0.8);
+input{
+width:100%;padding:10px;margin:8px 0;
+border-radius:8px;border:none;
+background:#111;color:#fff;
 }
+
+.btn{
+background:linear-gradient(90deg,var(--accent),var(--accent2));
+border:none;padding:8px 12px;
+border-radius:8px;font-weight:600;
+cursor:pointer;
+}
+
+/* App */
+#appPage{display:none;padding:20px;text-align:center}
+
+.circle-wrapper{
+display:flex;justify-content:center;align-items:center;
+margin:25px 0;
+}
+
+.big-circle{
+width:240px;height:240px;border-radius:50%;
+background:radial-gradient(circle,rgba(255,255,0,0.15),#000);
+border:4px solid yellow;
+display:flex;align-items:center;justify-content:center;
+cursor:pointer;
+}
+
+.inner-circle{
+font-size:48px;color:yellow;font-weight:bold;
+}
+
+.bbox{
+background:#111;padding:6px 10px;
+border-radius:8px;margin:4px;display:inline-block;
+font-size:14px;
+}
+
+.action-row{
+margin-top:15px;
+display:flex;justify-content:center;
+gap:8px;flex-wrap:wrap;
+}
+
+.action-btn{
+background:#1a1a1a;
+border:1px solid orange;
+color:orange;
+padding:6px 10px;
+border-radius:6px;
+font-size:13px;
+cursor:pointer;
+}
+
+.powered{
+margin-top:15px;
+font-weight:bold;
+color:#ffae00;
+text-shadow:0 0 10px orange,0 0 20px yellow;
+}
+
+/* Popup */
+.popup{
+display:none;position:fixed;
+top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.8);
+justify-content:center;align-items:center;
+}
+
 .popup-box{
-  width:80%;
-  max-height:70%;
-  background:#1a1a1a;
-  border:2px solid yellow;
-  border-radius:16px;
-  padding:20px;
-  overflow-y:auto;
-  position:relative;
+background:#1a1a1a;padding:20px;
+border-radius:15px;width:85%;
+max-height:70%;overflow:auto;
+position:relative;
 }
-.popup-box div{padding:8px;margin:6px 0;background:#111;border-radius:8px;color:yellow;cursor:pointer;}
-.backBtn{position:absolute;top:10px;right:10px;background:yellow;color:#150800;border:none;padding:6px 10px;border-radius:8px;cursor:pointer;}
-.wordFly{position:absolute;color:yellow;font-weight:700;pointer-events:none;font-size:18px;opacity:1;}
+
+.popup-box div{
+background:#111;padding:8px;margin:5px 0;
+border-radius:8px;color:yellow;cursor:pointer;
+}
+
+.backBtn{
+position:absolute;top:10px;right:10px;
+background:yellow;color:black;
+border:none;padding:5px 10px;
+border-radius:8px;cursor:pointer;
+}
+
+.wordFly{
+position:fixed;color:yellow;font-weight:700;
+pointer-events:none;font-size:18px;
+}
 </style>
 </head>
+
 <body>
 
+<!-- Loading -->
 <div id="loadingPage">
-  <div class="spinner-wrapper">
-    <div class="circle"></div>
-    <div class="dot-container"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-  </div>
-  <div class="loading-text"><span>L</span><span>o</span><span>a</span><span>d</span><span>i</span><span>n</span><span>g</span></div>
+<div class="spinner"></div>
+<div class="loading-name">loading</div>
 </div>
 
+<!-- Welcome -->
 <div id="welcomePage">
-  <div class="logo" id="langToggle">ॐ</div>
-  <div class="brand">
-    <h2 id="welcomeText">स्वागत है</h2>
-    <p id="descText">राधा नाम जप और हनुमान चालीसा – काउंटिंग, माला और भजन</p>
-  </div>
-  <div class="card">
-    <div class="tabs">
-      <button class="active" id="loginTab">लॉगिन</button>
-      <button id="signupTab">रजिस्टर</button>
-    </div>
-    <div class="forms">
-      <form class="form" id="loginForm">
-        <label class="input"><span class="icon">📧</span><input id="loginEmail" type="email" placeholder="ईमेल या मोबाइल" required></label>
-        <label class="input"><span class="icon">🔒</span><input id="loginPassword" type="password" placeholder="पासवर्ड" minlength="6" required></label>
-        <button class="btn" type="submit">लॉगिन</button>
-        <div class="social">
-          <button type="button" data-provider="google">Google</button>
-          <button type="button" data-provider="apple">Apple</button>
-        </div>
-      </form>
-      <form class="form hidden" id="signupForm">
-        <label class="input"><span class="icon">📧</span><input id="signupEmail" type="email" placeholder="ईमेल या मोबाइल" required></label>
-        <label class="input"><span class="icon">🔒</span><input id="signupPassword" type="password" placeholder="पासवर्ड" minlength="6" required></label>
-        <button class="btn" type="submit">रजिस्टर</button>
-      </form>
-    </div>
-  </div>
-  <div class="footer">Powered by Adarsh Shukla</div>
+<div class="logo">ॐ</div>
+<h2 id="welcomeTitle">स्वागत है</h2>
+<p id="welcomeDesc">राधा नाम जप और हनुमान चालीसा – काउंटिंग, माला और भजन</p>
+
+<div class="card">
+<div id="loginForm">
+<input type="email" id="loginEmail" placeholder="Email">
+<input type="password" id="loginPassword" placeholder="Password">
+<button class="btn" onclick="login()">Login</button>
+<p style="color:orange;cursor:pointer" onclick="showSignup()">Create Account</p>
 </div>
 
+<div id="signupForm" style="display:none">
+<input type="email" id="signupEmail" placeholder="Email">
+<input type="password" id="signupPassword" placeholder="Password">
+<button class="btn" onclick="signup()">Signup</button>
+<p style="color:orange;cursor:pointer" onclick="showLogin()">Already have account?</p>
+</div>
+</div>
+</div>
+
+<!-- App -->
 <div id="appPage">
-<h1 class="appTitle">राधा नाम जप & हनुमान चालीसा</h1>
-<div class="music-player">
-  <select id="songList">
-    <option value="radha.mp3">Radha Naam Kirtan</option>
-    <option value="hanuman-chalisa.mp3">Hanuman Chalisa</option>
-  </select>
-  <button id="musicBtn">▶</button>
-</div>
-<audio id="bgMusic"></audio>
-<div class="top-stats">
-  <div class="bbox">⏱ <span id="time">00:00</span></div>
-  <div class="bbox">🔥 Streak: <span id="streak">0</span></div>
-</div>
-<div class="circle-wrap">
-  <div class="big-circle" id="tapArea"><div class="inner-circle" id="count">0</div></div>
-</div>
-<div class="bottom-boxes">
-  <div class="bbox"><span class="num" id="mala">0</span> माला</div>
-  <div class="bbox"><span class="num" id="today">0</span> आज</div>
-  <div class="bbox"><span class="num" id="total">0</span> कुल</div>
-</div>
-<div class="buttons">
-  <button class="btn" id="openNames">28 नाम</button>
-  <button class="btn" id="openHistory">इतिहास</button>
-  <button class="btn" id="resetBtn">Reset</button>
-  <button class="btn" id="changeBgBtn">🌈 Background बदलें</button>
-</div>
-<div id="namePopup"><div class="popup-box" id="nameList"><button class="backBtn" onclick="document.getElementById('namePopup').style.display='none'">Back</button></div></div>
-<div id="historyPopup"><div class="popup-box" id="historyList"><button class="backBtn" onclick="document.getElementById('historyPopup').style.display='none'">Back</button></div></div>
-<footer>Powered by Adarsh Shukla</footer>
 
+<h2>राधा नाम जप</h2>
+
+<div class="bbox">⏱ <span id="time">00:00</span></div>
+<div class="bbox">🔥 <span id="streak">0</span></div>
+
+<div class="circle-wrapper">
+<div class="big-circle" id="tapArea">
+<div class="inner-circle" id="count">0</div>
+</div>
+</div>
+
+<div>
+<div class="bbox">माला <span id="mala">0</span></div>
+<div class="bbox">आज <span id="today">0</span></div>
+<div class="bbox">कुल <span id="total">0</span></div>
+</div>
+
+<div class="action-row">
+<div class="action-btn" onclick="openNames()">28 नाम</div>
+<div class="action-btn" onclick="openHistory()">इतिहास</div>
+<div class="action-btn" onclick="resetAll()">Reset</div>
+<div class="action-btn" onclick="changeBg()">Background</div>
+</div>
+
+<div class="powered">Powered by Adarsh Shukla</div>
+
+</div>
+
+<!-- Popups -->
+<div class="popup" id="namePopup">
+<div class="popup-box">
+<button class="backBtn" onclick="closePopup('namePopup')">Back</button>
+<div id="nameList"></div>
+</div>
+</div>
+
+<div class="popup" id="historyPopup">
+<div class="popup-box">
+<button class="backBtn" onclick="closePopup('historyPopup')">Back</button>
+<div id="historyList"></div>
+</div>
+</div>
+
+<!-- Firebase -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, OAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 
-const firebaseConfig = { apiKey:"AIzaSyALDsUb14vKOHt-3rA1cqQzqKLJrSTl8mY", authDomain:"radha-jaap-mala.firebaseapp.com", projectId:"radha-jaap-mala", storageBucket:"radha-jaap-mala.firebasestorage.app", messagingSenderId:"582552451696", appId:"1:582552451696:web:8f83abf48da0622738d2b5" };
-const app=initializeApp(firebaseConfig); 
-const auth=getAuth();
-
-// Loading
-setTimeout(()=>{document.getElementById("loadingPage").style.display="none";document.getElementById("welcomePage").style.display="flex";},1500);
-
-// Language toggle
-let isHindi=true;
-document.getElementById("langToggle").onclick=()=>{
-  isHindi=!isHindi;
-  if(isHindi){
-    document.getElementById("welcomeText").innerText="स्वागत है";
-    document.getElementById("descText").innerText="राधा नाम जप और हनुमान चालीसा – काउंटिंग, माला और भजन";
-    document.getElementById("loginTab").innerText="लॉगिन";
-    document.getElementById("signupTab").innerText="रजिस्टर";
-  }else{
-    document.getElementById("welcomeText").innerText="Welcome";
-    document.getElementById("descText").innerText="Radha Naam Jap & Hanuman Chalisa – Counting, Mala & Bhajan";
-    document.getElementById("loginTab").innerText="Login";
-    document.getElementById("signupTab").innerText="Signup";
-  }
+const firebaseConfig = {
+  apiKey: "AIzaSyALDsUb14vKOHt-3rA1cqQzqKLJrSTl8mY",
+  authDomain: "radha-jaap-mala.firebaseapp.com",
+  projectId: "radha-jaap-mala",
+  storageBucket: "radha-jaap-mala.firebasestorage.app",
+  messagingSenderId: "582552451696",
+  appId: "1:582552451696:web:8f83abf48da0622738d2b5"
 };
 
-// Tabs
-const loginTab=document.getElementById("loginTab"), signupTab=document.getElementById("signupTab");
-const loginForm=document.getElementById("loginForm"), signupForm=document.getElementById("signupForm");
-loginTab.onclick=()=>{loginTab.classList.add("active");signupTab.classList.remove("active");loginForm.classList.remove("hidden");signupForm.classList.add("hidden");};
-signupTab.onclick=()=>{signupTab.classList.add("active");loginTab.classList.remove("active");signupForm.classList.remove("hidden");loginForm.classList.add("hidden");};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-// Firebase Auth
-loginForm.onsubmit=async e=>{e.preventDefault(); try{ await signInWithEmailAndPassword(auth,document.getElementById("loginEmail").value,document.getElementById("loginPassword").value); document.getElementById("welcomePage").style.display="none"; document.getElementById("appPage").style.display="block"; } catch(err){alert("Login error: "+err.message);} };
-signupForm.onsubmit=async e=>{e.preventDefault(); try{ await createUserWithEmailAndPassword(auth,document.getElementById("signupEmail").value,document.getElementById("signupPassword").value); alert("Successfully registered!"); loginTab.click(); } catch(err){alert("Signup error: "+err.message);} };
-document.querySelectorAll(".social button").forEach(btn=>{btn.onclick=async ()=>{let provider;if(btn.getAttribute("data-provider")==="google")provider=new GoogleAuthProvider();else provider=new OAuthProvider("apple.com"); try{await signInWithPopup(auth,provider);document.getElementById("welcomePage").style.display="none";document.getElementById("appPage").style.display="block";}catch(err){alert("Login error: "+err.message);}}});
-
-// Tap counter
-let selectedName="राधा",total=0,today=0,mala=0,streak=0,seconds=0,timerStarted=false,tapHistory=[],display=document.getElementById("count");
-const names=["राधा","श्रीकृष्ण","हनुमान","सीता राम","दुर्गा","काली","लक्ष्मी","सरस्वती","गणेश","शिव","महादेव","नारायण","विष्णु","शंकर","बजरंगबली","श्री राम","श्रीनाथ","बालाजी","रुक्मिणी","विट्ठल","पार्वती","अदिति","भवानी","महाकाल","कालिका","अन्नपूर्णा","माँ संतोषी","नृसिंह"];
-let list=document.getElementById("nameList"); names.forEach(n=>{let d=document.createElement("div");d.innerText=n;d.onclick=()=>{selectedName=n;document.getElementById("namePopup").style.display="none";};list.appendChild(d);});
-document.getElementById("openNames").onclick=()=>{document.getElementById("namePopup").style.display="flex";};
-
-// History popup
-document.getElementById("openHistory").onclick=()=>{
-let h=document.getElementById("historyList");h.innerHTML="<button class='backBtn' onclick=\"document.getElementById('historyPopup').style.display='none'\">Back</button>";
-if(tapHistory.length===0) h.innerHTML+="<div>कोई इतिहास नहीं / No history</div>";
-else tapHistory.forEach((v,i)=>{let d=document.createElement("div");d.innerText=`Tap ${i+1}: ${v.name} | कुल: ${v.total} | समय: ${v.time}`;h.appendChild(d);});
-document.getElementById("historyPopup").style.display="flex";
-};
-
-// Music
-let music=document.getElementById("bgMusic"),musicBtn=document.getElementById("musicBtn"),songSelect=document.getElementById("songList");
-music.src=songSelect.value; 
-musicBtn.onclick=()=>{if(music.paused){music.play();musicBtn.innerText="⏸";}else{music.pause();musicBtn.innerText="▶";}};
-songSelect.onchange=e=>{music.src=e.target.value;music.play();musicBtn.innerText="⏸";};
-
-// Timer
-function startTimer(){setInterval(()=>{seconds++;document.getElementById("time").innerText=Math.floor(seconds/60).toString().padStart(2,"0")+":"+Math.floor(seconds%60).toString().padStart(2,"0");},1000);}
-document.getElementById("tapArea").onclick=()=>{
-if(!timerStarted){timerStarted=true;startTimer();}
-total++;today++;if(total%108===0)mala++;streak++;display.innerText=today;document.getElementById("mala").innerText=mala;document.getElementById("today").innerText=today;document.getElementById("total").innerText=total;document.getElementById("streak").innerText=streak;
-tapHistory.push({name:selectedName,total,today,time:new Date().toLocaleTimeString()});
-
-// Word flying effect - center to all directions
-for(let i=0;i<8;i++){
-  let word=document.createElement("div");word.className="wordFly";word.innerText=selectedName;document.body.appendChild(word);
-  word.style.left=(window.innerWidth/2)+"px";
-  word.style.top=(window.innerHeight/2)+"px";
-  let angle=(Math.PI/4)*i; let dist=150+Math.random()*50;
-  word.style.transition="all 1s ease-out"; 
-  setTimeout(()=>{word.style.transform=`translate(${Math.cos(angle)*dist}px,${Math.sin(angle)*dist}px)`;word.style.opacity=0;},50);
-  setTimeout(()=>{document.body.removeChild(word);},1100);
+window.login = async ()=>{
+try{
+await signInWithEmailAndPassword(auth,loginEmail.value,loginPassword.value);
+startApp();
+}catch(e){alert(e.message)}
 }
-};
 
-document.getElementById("resetBtn").onclick=()=>{if(confirm("क्या आप काउंट रीसेट करना चाहते हैं? / Reset all?")){total=0;today=0;mala=0;streak=0;seconds=0;tapHistory=[];display.innerText="0";document.getElementById("mala").innerText="0";document.getElementById("today").innerText="0";document.getElementById("total").innerText="0";document.getElementById("streak").innerText="0";document.getElementById("time").innerText="00:00";}};
-const backgrounds=["linear-gradient(135deg,#ff8a00,#ffa733)","linear-gradient(135deg,#ff3a3a,#ffb84d)","linear-gradient(135deg,#00c6ff,#0072ff)"];
-document.getElementById("changeBgBtn").onclick=()=>{document.body.style.background=backgrounds[Math.floor(Math.random()*backgrounds.length)];};
+window.signup = async ()=>{
+try{
+await createUserWithEmailAndPassword(auth,signupEmail.value,signupPassword.value);
+alert("Registered!");
+showLogin();
+}catch(e){alert(e.message)}
+}
+</script>
 
+<script>
+setTimeout(()=>{loadingPage.style.display="none";welcomePage.style.display="flex"},1500)
+
+function showSignup(){loginForm.style.display="none";signupForm.style.display="block"}
+function showLogin(){signupForm.style.display="none";loginForm.style.display="block"}
+function startApp(){welcomePage.style.display="none";appPage.style.display="block"}
+
+let total=0,today=0,mala=0,streak=0,seconds=0,timerStarted=false
+let selectedName="राधा"
+let history=[]
+
+const names=["राधा","श्रीकृष्ण","हनुमान","सीता राम","दुर्गा","काली","लक्ष्मी","सरस्वती","गणेश","शिव","महादेव","नारायण","विष्णु","शंकर","बजरंगबली","श्री राम","श्रीनाथ","बालाजी","रुक्मिणी","विट्ठल","पार्वती","अदिति","भवानी","महाकाल","कालिका","अन्नपूर्णा","माँ संतोषी","नृसिंह"]
+
+names.forEach(n=>{
+let d=document.createElement("div")
+d.innerText=n
+d.onclick=()=>{selectedName=n;closePopup('namePopup')}
+nameList.appendChild(d)
+})
+
+function openNames(){namePopup.style.display="flex"}
+function openHistory(){
+historyList.innerHTML=""
+if(history.length===0){
+historyList.innerHTML="<div>No History</div>"
+}else{
+history.forEach(h=>{
+let d=document.createElement("div")
+d.innerText=`${h.name} | ${h.time}`
+historyList.appendChild(d)
+})
+}
+historyPopup.style.display="flex"
+}
+function closePopup(id){document.getElementById(id).style.display="none"}
+
+function resetAll(){
+if(confirm("Reset?")){
+total=today=mala=streak=seconds=0
+count.innerText="0"
+document.getElementById("mala").innerText="0"
+document.getElementById("today").innerText="0"
+document.getElementById("total").innerText="0"
+document.getElementById("streak").innerText="0"
+time.innerText="00:00"
+history=[]
+}
+}
+
+function changeBg(){
+const colors=["#000","#1a1a1a","#330000","#001133"]
+document.body.style.background=colors[Math.floor(Math.random()*colors.length)]
+}
+
+function startTimer(){
+setInterval(()=>{
+seconds++
+time.innerText=Math.floor(seconds/60).toString().padStart(2,"0")+":"+Math.floor(seconds%60).toString().padStart(2,"0")
+},1000)
+}
+
+tapArea.onclick=()=>{
+if(!timerStarted){timerStarted=true;startTimer()}
+total++;today++;streak++
+if(total%108===0)mala++
+
+count.innerText=today
+document.getElementById("mala").innerText=mala
+document.getElementById("today").innerText=today
+document.getElementById("total").innerText=total
+document.getElementById("streak").innerText=streak
+
+history.push({name:selectedName,time:new Date().toLocaleTimeString()})
+
+const rect=tapArea.getBoundingClientRect()
+const cx=rect.left+rect.width/2
+const cy=rect.top+rect.height/2
+
+for(let i=0;i<8;i++){
+let word=document.createElement("div")
+word.className="wordFly"
+word.innerText=selectedName
+document.body.appendChild(word)
+word.style.left=cx+"px"
+word.style.top=cy+"px"
+let angle=(Math.PI/4)*i
+let dist=160+Math.random()*50
+word.style.transition="1s"
+setTimeout(()=>{
+word.style.transform=`translate(${Math.cos(angle)*dist}px,${Math.sin(angle)*dist}px)`
+word.style.opacity=0
+},50)
+setTimeout(()=>{document.body.removeChild(word)},1000)
+}
+}
 </script>
 
 </body>
